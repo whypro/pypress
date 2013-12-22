@@ -67,7 +67,7 @@
 {%- endblock %}
 {%- block js %}
 {{ super() }}
-<script type="text/javascript" src="{{ url_for('.static', filename="js/jquery.idTabs.min.js") }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename="js/jquery.idTabs.min.js") }}"></script>
 <script type="text/javascript">
 $(function(){
     $("#tab").idTabs();

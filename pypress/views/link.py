@@ -6,10 +6,10 @@
     :license: BSD, see LICENSE for more details.
 """
 
-from flask import Module, Response, request, flash, jsonify, g, current_app,\
+from flask import Blueprint, Response, request, flash, jsonify, g, current_app,\
     abort, redirect, url_for, session
 
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 
 from pypress.helpers import render_template, cached
 from pypress.permissions import auth, admin
@@ -18,7 +18,7 @@ from pypress.extensions import db
 from pypress.models import Link
 from pypress.forms import LinkForm
 
-link = Module(__name__)
+link = Blueprint('link', __name__ )
 
 @link.route("/")
 @link.route("/page/<int:page>/")

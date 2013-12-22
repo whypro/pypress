@@ -17,11 +17,11 @@ except:
 
 import oauth2 as oauth
 
-from flask import Module, Response, request, flash, jsonify, g, current_app,\
+from flask import Blueprint, Response, request, flash, jsonify, g, current_app,\
     abort, redirect, url_for, session
 
-from flaskext.babel import gettext as _
-from flaskext.principal import identity_changed, Identity, AnonymousIdentity
+from flask.ext.babel import gettext as _
+from flask.ext.principal import identity_changed, Identity, AnonymousIdentity
 
 from pypress.helpers import render_template, cached
 from pypress.permissions import auth, admin 
@@ -32,7 +32,7 @@ from pypress.forms import LoginForm, SignupForm
 
 from pypress import twitter
 
-account = Module(__name__)
+account = Blueprint('account', __name__ )
 
 REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
 ACCESS_TOKEN_URL  = 'https://api.twitter.com/oauth/access_token'

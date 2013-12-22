@@ -4,7 +4,7 @@
 import uuid
 
 from flask import Flask, current_app
-from flaskext.script import Server, Shell, Manager, Command, prompt_bool
+from flask.ext.script import Server, Shell, Manager, Command, prompt_bool
 
 from pypress import create_app
 from pypress.extensions import db

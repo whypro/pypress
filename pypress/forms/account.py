@@ -7,21 +7,21 @@
 
     :license: BSD, see LICENSE for more details.
 """
-from flaskext.wtf import Form, TextAreaField, HiddenField, BooleanField, \
-        PasswordField, SubmitField, TextField, ValidationError, \
-        required, email, equal_to, regexp
+from flask.ext.wtf import Form
+from wtforms import TextAreaField, HiddenField, BooleanField, \
+    PasswordField, SubmitField, TextField, ValidationError
+from wtforms.validators import DataRequired, Email, EqualTo
+from flask.ext.babel import gettext, lazy_gettext as _
 
-from flaskext.babel import gettext, lazy_gettext as _ 
-
-from pypress.extensions import db
 from pypress.models import User
 
 from .validators import is_username
 
+
 class LoginForm(Form):
 
     login = TextField(_("Username or email address"), validators=[
-                      required(message=\
+                      DataRequired(message=\
                                _("You must provide an email or username"))])
 
     password = PasswordField(_("Password"))
@@ -36,22 +36,22 @@ class LoginForm(Form):
 class SignupForm(Form):
 
     username = TextField(_("Username"), validators=[
-                         required(message=_("Username required")), 
+                         DataRequired(message=_("Username required")),
                          is_username])
 
     nickname = TextField(_("Nickname"), validators=[
-                         required(message=_("Nickname required"))])
+                         DataRequired(message=_("Nickname required"))])
 
     password = PasswordField(_("Password"), validators=[
-                             required(message=_("Password required"))])
+                             DataRequired(message=_("Password required"))])
 
     password_again = PasswordField(_("Password again"), validators=[
-                                   equal_to("password", message=\
+                                   EqualTo("password", message=\
                                             _("Passwords don't match"))])
 
     email = TextField(_("Email address"), validators=[
-                      required(message=_("Email address required")), 
-                      email(message=_("A valid email address is required"))])
+                      DataRequired(message=_("Email address required")),
+                      Email(message=_("A valid email address is required"))])
 
     code = TextField(_("Signup Code"))
 
@@ -73,7 +73,7 @@ class SignupForm(Form):
 class RecoverPasswordForm(Form):
 
     email = TextField("Your email address", validators=[
-                      email(message=_("A valid email address is required"))])
+                      Email(message=_("A valid email address is required"))])
 
     submit = SubmitField(_("Find password"))
 
@@ -81,20 +81,20 @@ class RecoverPasswordForm(Form):
 class ChangePasswordForm(Form):
 
     password_old = PasswordField(_("Password"), validators=[
-                             required(message=_("Password is required"))])
+                             DataRequired(message=_("Password is required"))])
 
     password = PasswordField(_("New Password"), validators=[
-                             required(message=_("New Password is required"))])
-    
+                             DataRequired(message=_("New Password is required"))])
+
     password_again = PasswordField(_("Password again"), validators=[
-                                   equal_to("password", message=\
+                                   EqualTo("password", message=\
                                             _("Passwords don't match"))])
 
     submit = SubmitField(_("Save"))
 
 
 class DeleteAccountForm(Form):
-    
+
     recaptcha = TextField(_("Recaptcha"))
 
     submit = SubmitField(_("Delete"))
@@ -103,7 +103,7 @@ class DeleteAccountForm(Form):
 class TwitterForm(Form):
 
     content = TextAreaField(_("Content"), validators=[
-                        required(message=_("Content is required"))])
+                        DataRequired(message=_("Content is required"))])
 
     submit = SubmitField(_("Send"))
 

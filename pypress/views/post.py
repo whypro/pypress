@@ -10,11 +10,11 @@ import datetime
 import os
 import json
 
-from flask import Module, Response, request, flash, jsonify, g, current_app, \
+from flask import Blueprint, Response, request, flash, jsonify, g, current_app, \
     abort, redirect, url_for, session
 
-from flaskext.mail import Message
-from flaskext.babel import gettext as _
+from flask.ext.mail import Message
+from flask.ext.babel import gettext as _
 
 from pypress import signals
 from pypress.helpers import render_template, cached, ip2long
@@ -24,7 +24,7 @@ from pypress.extensions import db
 from pypress.models import User, Post, Comment
 from pypress.forms import PostForm, CommentForm
 
-post = Module(__name__)
+post = Blueprint('post', __name__ )
 
 
 @post.route("/", methods=("GET","POST"))
